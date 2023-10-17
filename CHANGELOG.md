@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.16.2](https://github.com/itwks/ghr/compare/v0.13.0...v0.16.2) - 2023-10-17
+- [pull] master from tcnksm:master by @pull in https://github.com/itwks/ghr/pull/1
+- [pull] master from tcnksm:master by @pull in https://github.com/itwks/ghr/pull/2
+- [pull] master from tcnksm:master by @pull in https://github.com/itwks/ghr/pull/4
+- [pull] master from tcnksm:master by @pull in https://github.com/itwks/ghr/pull/5
+
 ## [v0.16.2](https://github.com/tcnksm/ghr/compare/v0.16.1...v0.16.2) - 2023-10-16
 - disable cgo. fixes #154. by @shogo82148 in https://github.com/tcnksm/ghr/pull/155
 
