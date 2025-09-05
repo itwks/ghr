@@ -1,6 +1,6 @@
 module github.com/tcnksm/ghr
 
-go 1.23
+go 1.23.0
 
 toolchain go1.23.1
 
@@ -13,7 +13,7 @@ require (
 	github.com/tcnksm/go-gitconfig v0.1.2
 	github.com/tcnksm/go-latest v0.0.0-20170313132115-e3007ae9052e
 	github.com/thediveo/enumflag/v2 v2.0.5
-	golang.org/x/oauth2 v0.23.0
+	golang.org/x/oauth2 v0.27.0
 	golang.org/x/sync v0.8.0
 )
 
