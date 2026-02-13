@@ -1,5 +1,14 @@
 # Changelog
 
+## [v0.17.0](https://github.com/itwks/ghr/compare/v0.13.0...v0.17.0) - 2026-02-13
+- [pull] master from tcnksm:master by @pull[bot] in https://github.com/itwks/ghr/pull/1
+- [pull] master from tcnksm:master by @pull[bot] in https://github.com/itwks/ghr/pull/2
+- [pull] master from tcnksm:master by @pull[bot] in https://github.com/itwks/ghr/pull/4
+- [pull] master from tcnksm:master by @pull[bot] in https://github.com/itwks/ghr/pull/5
+- [pull] master from tcnksm:master by @pull[bot] in https://github.com/itwks/ghr/pull/6
+- [pull] master from tcnksm:master by @pull[bot] in https://github.com/itwks/ghr/pull/7
+- [pull] master from tcnksm:master by @pull[bot] in https://github.com/itwks/ghr/pull/8
+
 ## [v0.17.0](https://github.com/tcnksm/ghr/compare/v0.16.2...v0.17.0) - 2024-10-14
 - Add -latest flag to specify latest release or not by @danudey in https://github.com/tcnksm/ghr/pull/152
 - Bump google.golang.org/protobuf from 1.28.1 to 1.33.0 by @dependabot in https://github.com/tcnksm/ghr/pull/158
