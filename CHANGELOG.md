@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.17.1](https://github.com/tcnksm/ghr/compare/v0.17.0...v0.17.1) - 2026-02-13
+- Bump golang.org/x/oauth2 from 0.23.0 to 0.27.0 by @dependabot[bot] in https://github.com/tcnksm/ghr/pull/166
+- Bump golang.org/x/net from 0.30.0 to 0.38.0 by @dependabot[bot] in https://github.com/tcnksm/ghr/pull/165
+- make github workflow safer by @Songmu in https://github.com/tcnksm/ghr/pull/169
+
 ## [v0.17.0](https://github.com/tcnksm/ghr/compare/v0.16.2...v0.17.0) - 2024-10-14
 - Add -latest flag to specify latest release or not by @danudey in https://github.com/tcnksm/ghr/pull/152
 - Bump google.golang.org/protobuf from 1.28.1 to 1.33.0 by @dependabot in https://github.com/tcnksm/ghr/pull/158
