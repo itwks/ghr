@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.17.2](https://github.com/tcnksm/ghr/compare/v0.17.1...v0.17.2) - 2026-02-13
+- use go 1.25 by @Songmu in https://github.com/tcnksm/ghr/pull/170
+
 ## [v0.17.1](https://github.com/tcnksm/ghr/compare/v0.17.0...v0.17.1) - 2026-02-13
 - Bump golang.org/x/oauth2 from 0.23.0 to 0.27.0 by @dependabot[bot] in https://github.com/tcnksm/ghr/pull/166
 - Bump golang.org/x/net from 0.30.0 to 0.38.0 by @dependabot[bot] in https://github.com/tcnksm/ghr/pull/165
