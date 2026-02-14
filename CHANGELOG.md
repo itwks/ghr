@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.18.0](https://github.com/tcnksm/ghr/compare/v0.17.2...v0.18.0) - 2026-02-14
+- add custom GitHub Actions by @Songmu in https://github.com/tcnksm/ghr/pull/174
+
 ## [v0.17.2](https://github.com/tcnksm/ghr/compare/v0.17.1...v0.17.2) - 2026-02-13
 - use go 1.25 by @Songmu in https://github.com/tcnksm/ghr/pull/170
 
