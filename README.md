@@ -114,6 +114,68 @@ Or you can use `go install`.
 $ go install github.com/tcnksm/ghr@latest
 ```
 
+## GitHub Actions
+
+You can use `ghr` as a GitHub Action in your workflows. This action downloads and runs `ghr` to create a GitHub Release and upload artifacts.
+
+### Basic Usage
+
+```yaml
+- uses: tcnksm/ghr@v0
+  with:
+    tag: ${{ github.ref_name }}
+    path: dist/
+```
+
+### Inputs
+
+| Name | Description | Required | Default |
+|------|-------------|----------|---------|
+| `version` | Version of ghr to install | No | `v0.17.2` |
+| `tag` | Git tag for the release | **Yes** | |
+| `path` | Path to artifacts to upload (file or directory) | No | `.` |
+| `commitish` | Target commitish, branch or commit SHA | No | |
+| `name` | GitHub release title | No | |
+| `body` | Text describing the contents of the release | No | |
+| `draft` | Create release as draft | No | `false` |
+| `prerelease` | Create as prerelease | No | `false` |
+| `latest` | Set the release as latest (`true`, `false`, or `auto`) | No | |
+| `replace` | Replace artifacts if already uploaded | No | `false` |
+| `delete` | Recreate release if it already exists | No | `false` |
+| `soft` | Stop uploading if the tag already exists | No | `false` |
+| `generatenotes` | Generate release notes automatically | No | `false` |
+| `parallel` | Parallelization factor for uploads | No | |
+| `owner` | GitHub repository owner | No | |
+| `repository` | GitHub repository name | No | |
+| `token` | GitHub token for authentication | No | `${{ github.token }}` |
+
+### Example: Cross-compiled Release
+
+```yaml
+name: Release
+on:
+  push:
+    tags:
+      - "v*"
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Build
+        run: make crossbuild
+      - uses: tcnksm/ghr@v0
+        with:
+          tag: ${{ github.ref_name }}
+          path: dist/
+          replace: "true"
+```
+
 ## VS.
 
 - [aktau/github-release](https://github.com/aktau/github-release) - `github-release` can also create and edit releases and upload artifacts. It has many options. `ghr` is a simple alternative. And `ghr` will parallelize upload artifacts.
