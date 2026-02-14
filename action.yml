@@ -1,0 +1,134 @@
+name: Create GitHub Release and upload artifacts using ghr
+author: tcnksm
+description: Install and run ghr to create a GitHub Release and upload artifacts in parallel
+inputs:
+  version:
+    description: "Version of ghr to install"
+    required: false
+    default: "v0.17.2"
+  tag:
+    description: "Git tag for the release (required)"
+    required: true
+  path:
+    description: "Path to artifacts to upload (file or directory)"
+    required: false
+  commitish:
+    description: "Target commitish, branch or commit SHA"
+    required: false
+  name:
+    description: "GitHub release title"
+    required: false
+  body:
+    description: "Text describing the contents of the release"
+    required: false
+  draft:
+    description: "Create release as draft"
+    required: false
+    default: "false"
+  prerelease:
+    description: "Create as prerelease"
+    required: false
+    default: "false"
+  latest:
+    description: "Set the release as latest (true, false, or auto)"
+    required: false
+  replace:
+    description: "Replace artifacts if already uploaded"
+    required: false
+    default: "false"
+  delete:
+    description: "Recreate release if it already exists"
+    required: false
+    default: "false"
+  soft:
+    description: "Stop uploading if the tag already exists"
+    required: false
+    default: "false"
+  generatenotes:
+    description: "Generate release notes automatically"
+    required: false
+    default: "false"
+  parallel:
+    description: "Parallelization factor for uploads"
+    required: false
+  owner:
+    description: "GitHub repository owner"
+    required: false
+  repository:
+    description: "GitHub repository name"
+    required: false
+runs:
+  using: "composite"
+  steps:
+  - name: Install and run ghr
+    run: |
+      cd "${GITHUB_WORKSPACE}" || exit 1
+      TEMP_PATH="$(mktemp -d)"
+      PATH="${TEMP_PATH}:$PATH"
+      curl -sfL "https://raw.githubusercontent.com/tcnksm/ghr/${ACTION_REF}/install.sh" | sh -s -- -b "$TEMP_PATH" "$GHR_VERSION" 2>&1
+
+      ARGS=""
+      if [ "$INPUT_DRAFT" = "true" ]; then
+        ARGS="$ARGS -draft"
+      fi
+      if [ "$INPUT_PRERELEASE" = "true" ]; then
+        ARGS="$ARGS -prerelease"
+      fi
+      if [ -n "$INPUT_LATEST" ]; then
+        ARGS="$ARGS -latest $INPUT_LATEST"
+      fi
+      if [ "$INPUT_REPLACE" = "true" ]; then
+        ARGS="$ARGS -replace"
+      fi
+      if [ "$INPUT_DELETE" = "true" ]; then
+        ARGS="$ARGS -delete"
+      fi
+      if [ "$INPUT_SOFT" = "true" ]; then
+        ARGS="$ARGS -soft"
+      fi
+      if [ "$INPUT_GENERATENOTES" = "true" ]; then
+        ARGS="$ARGS -generatenotes"
+      fi
+      if [ -n "$INPUT_COMMITISH" ]; then
+        ARGS="$ARGS -commitish $INPUT_COMMITISH"
+      fi
+      if [ -n "$INPUT_NAME" ]; then
+        ARGS="$ARGS -n $INPUT_NAME"
+      fi
+      if [ -n "$INPUT_BODY" ]; then
+        ARGS="$ARGS -b $INPUT_BODY"
+      fi
+      if [ -n "$INPUT_PARALLEL" ]; then
+        ARGS="$ARGS -parallel $INPUT_PARALLEL"
+      fi
+      if [ -n "$INPUT_OWNER" ]; then
+        ARGS="$ARGS -u $INPUT_OWNER"
+      fi
+      if [ -n "$INPUT_REPOSITORY" ]; then
+        ARGS="$ARGS -r $INPUT_REPOSITORY"
+      fi
+
+      # shellcheck disable=SC2086
+      ghr $ARGS "$INPUT_TAG" "${INPUT_PATH:-.}"
+    shell: bash
+    env:
+      ACTION_REF: ${{ github.action_ref }}
+      GHR_VERSION: ${{ inputs.version }}
+      INPUT_TAG: ${{ inputs.tag }}
+      INPUT_PATH: ${{ inputs.path }}
+      INPUT_COMMITISH: ${{ inputs.commitish }}
+      INPUT_NAME: ${{ inputs.name }}
+      INPUT_BODY: ${{ inputs.body }}
+      INPUT_DRAFT: ${{ inputs.draft }}
+      INPUT_PRERELEASE: ${{ inputs.prerelease }}
+      INPUT_LATEST: ${{ inputs.latest }}
+      INPUT_REPLACE: ${{ inputs.replace }}
+      INPUT_DELETE: ${{ inputs.delete }}
+      INPUT_SOFT: ${{ inputs.soft }}
+      INPUT_GENERATENOTES: ${{ inputs.generatenotes }}
+      INPUT_PARALLEL: ${{ inputs.parallel }}
+      INPUT_OWNER: ${{ inputs.owner }}
+      INPUT_REPOSITORY: ${{ inputs.repository }}
+branding:
+  icon: 'upload-cloud'
+  color: 'gray-dark'

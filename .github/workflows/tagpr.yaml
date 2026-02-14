@@ -29,4 +29,5 @@ jobs:
     - uses: ./.github/actions/release
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ steps.tagpr.outputs.tag }}
       if: "steps.tagpr.outputs.tag != ''"
