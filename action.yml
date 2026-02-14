@@ -57,6 +57,10 @@ inputs:
   repository:
     description: "GitHub repository name"
     required: false
+  token:
+    description: "GitHub token for authentication"
+    required: false
+    default: ${{ github.token }}
 runs:
   using: "composite"
   steps:
@@ -67,53 +71,53 @@ runs:
       PATH="${TEMP_PATH}:$PATH"
       curl -sfL "https://raw.githubusercontent.com/tcnksm/ghr/${ACTION_REF}/install.sh" | sh -s -- -b "$TEMP_PATH" "$GHR_VERSION" 2>&1
 
-      ARGS=""
+      ARGS=()
       if [ "$INPUT_DRAFT" = "true" ]; then
-        ARGS="$ARGS -draft"
+        ARGS+=(-draft)
       fi
       if [ "$INPUT_PRERELEASE" = "true" ]; then
-        ARGS="$ARGS -prerelease"
+        ARGS+=(-prerelease)
       fi
       if [ -n "$INPUT_LATEST" ]; then
-        ARGS="$ARGS -latest $INPUT_LATEST"
+        ARGS+=(-latest "$INPUT_LATEST")
       fi
       if [ "$INPUT_REPLACE" = "true" ]; then
-        ARGS="$ARGS -replace"
+        ARGS+=(-replace)
       fi
       if [ "$INPUT_DELETE" = "true" ]; then
-        ARGS="$ARGS -delete"
+        ARGS+=(-delete)
       fi
       if [ "$INPUT_SOFT" = "true" ]; then
-        ARGS="$ARGS -soft"
+        ARGS+=(-soft)
       fi
       if [ "$INPUT_GENERATENOTES" = "true" ]; then
-        ARGS="$ARGS -generatenotes"
+        ARGS+=(-generatenotes)
       fi
       if [ -n "$INPUT_COMMITISH" ]; then
-        ARGS="$ARGS -commitish $INPUT_COMMITISH"
+        ARGS+=(-commitish "$INPUT_COMMITISH")
       fi
       if [ -n "$INPUT_NAME" ]; then
-        ARGS="$ARGS -n $INPUT_NAME"
+        ARGS+=(-n "$INPUT_NAME")
       fi
       if [ -n "$INPUT_BODY" ]; then
-        ARGS="$ARGS -b $INPUT_BODY"
+        ARGS+=(-b "$INPUT_BODY")
       fi
       if [ -n "$INPUT_PARALLEL" ]; then
-        ARGS="$ARGS -parallel $INPUT_PARALLEL"
+        ARGS+=(-parallel "$INPUT_PARALLEL")
       fi
       if [ -n "$INPUT_OWNER" ]; then
-        ARGS="$ARGS -u $INPUT_OWNER"
+        ARGS+=(-u "$INPUT_OWNER")
       fi
       if [ -n "$INPUT_REPOSITORY" ]; then
-        ARGS="$ARGS -r $INPUT_REPOSITORY"
+        ARGS+=(-r "$INPUT_REPOSITORY")
       fi
 
-      # shellcheck disable=SC2086
-      ghr $ARGS "$INPUT_TAG" "${INPUT_PATH:-.}"
+      ghr "${ARGS[@]}" "$INPUT_TAG" "${INPUT_PATH:-.}"
     shell: bash
     env:
       ACTION_REF: ${{ github.action_ref }}
       GHR_VERSION: ${{ inputs.version }}
+      GITHUB_TOKEN: ${{ inputs.token }}
       INPUT_TAG: ${{ inputs.tag }}
       INPUT_PATH: ${{ inputs.path }}
       INPUT_COMMITISH: ${{ inputs.commitish }}

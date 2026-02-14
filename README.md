@@ -125,8 +125,6 @@ You can use `ghr` as a GitHub Action in your workflows. This action downloads an
   with:
     tag: ${{ github.ref_name }}
     path: dist/
-  env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ### Inputs
@@ -149,6 +147,7 @@ You can use `ghr` as a GitHub Action in your workflows. This action downloads an
 | `parallel` | Parallelization factor for uploads | No | |
 | `owner` | GitHub repository owner | No | |
 | `repository` | GitHub repository name | No | |
+| `token` | GitHub token for authentication | No | `${{ github.token }}` |
 
 ### Example: Cross-compiled Release
 
@@ -175,8 +174,6 @@ jobs:
           tag: ${{ github.ref_name }}
           path: dist/
           replace: "true"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## VS.
