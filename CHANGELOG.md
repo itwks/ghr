@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.18.3](https://github.com/itwks/ghr/compare/v0.18.0...v0.18.3) - 2026-07-14
+
+- [pull] master from tcnksm:master by @pull[bot] in https://github.com/itwks/ghr/pull/11
+- [pull] master from tcnksm:master by @pull[bot] in https://github.com/itwks/ghr/pull/13
+- [pull] master from tcnksm:master by @pull[bot] in https://github.com/itwks/ghr/pull/14
+
 ## [v0.18.3](https://github.com/tcnksm/ghr/compare/v0.18.2...v0.18.3) - 2026-04-15
 - go 1.26 by @Songmu in https://github.com/tcnksm/ghr/pull/191
 
